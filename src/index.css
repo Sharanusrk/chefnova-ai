@@ -1,0 +1,211 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f6eedc;
+  --color-paper-dark: #ebdcbe;
+  --color-paper-deep: #ddc99f;
+  --color-ink: #2b2420;
+  --color-ink-soft: #6b5f4f;
+  --color-paprika: #c1440e;
+  --color-paprika-dark: #98350a;
+  --color-basil: #3f5330;
+  --color-basil-dark: #2e3d22;
+  --color-mustard: #d9a441;
+  --color-twine: #b7a67f;
+  --color-line: #ddcda3;
+
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-body: "Work Sans", "Helvetica Neue", sans-serif;
+  --font-mono: "Space Mono", "Courier New", monospace;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+  }
+
+  #root {
+    position: relative;
+    z-index: 1;
+  }
+
+  button {
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  input,
+  textarea {
+    font-family: inherit;
+  }
+}
+
+/* Subtle paper grain across the whole app */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.17  0 0 0 0 0.14  0 0 0 0 0.12  0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-paper-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-twine);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-paprika);
+}
+
+::selection {
+  background: var(--color-mustard);
+  color: var(--color-ink);
+}
+
+/* Keyboard focus visibility, kept even where we strip default outlines */
+:focus-visible {
+  outline: 2px solid var(--color-paprika);
+  outline-offset: 2px;
+}
+
+/* ---------- Recipe-card motifs ---------- */
+
+/* Deckle / torn paper edge, used at the top of the main recipe card */
+.torn-edge {
+  display: block;
+  width: 100%;
+  height: 14px;
+  color: var(--color-paper);
+}
+
+/* Card stock texture for index-card style panels */
+.card-stock {
+  background-color: #fffdf6;
+  background-image:
+    linear-gradient(var(--color-line) 1px, transparent 1px);
+  background-size: 100% 2.1rem;
+  background-position: 0 4.6rem;
+}
+
+/* Three punch holes down the left margin of a notebook panel */
+.notebook-holes {
+  background-image: radial-gradient(circle, var(--color-paper) 6px, transparent 6.5px);
+  background-repeat: repeat-y;
+  background-position: 50% 0;
+  background-size: 100% 64px;
+}
+
+.notebook-holes::after {
+  content: "";
+}
+
+/* Rubber-stamp badge */
+.stamp {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 9999px;
+  background: transparent;
+  mix-blend-mode: multiply;
+}
+
+/* Dotted "thread" connector between recipe steps */
+.thread-line {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--color-twine) 0,
+    var(--color-twine) 4px,
+    transparent 4px,
+    transparent 10px
+  );
+  width: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-rise {
+  animation: rise-in 0.5s ease both;
+}
+
+@keyframes stamp-in {
+  0% {
+    opacity: 0;
+    transform: scale(1.4) rotate(-8deg);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(var(--stamp-rotate, -3deg));
+  }
+}
+
+.animate-stamp {
+  animation: stamp-in 0.4s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
