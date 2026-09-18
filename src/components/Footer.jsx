@@ -22,7 +22,7 @@ function Footer() {
         <div className="mt-6 flex justify-center gap-5 text-lg text-ink-soft">
 
           <a
-            href="https://github.com/sharan_srk"
+            href="https://github.com/sharanusrk"
             target="_blank"
             rel="noreferrer"
             aria-label="GitHub"
@@ -32,7 +32,7 @@ function Footer() {
           </a>
 
           <a
-            href="https://www.linkedin.com/in/sharanu-kumusagi"
+            href="https://www.linkedin.com/in/sharanu-kumasgi/"
             target="_blank"
             rel="noreferrer"
             aria-label="LinkedIn"
@@ -42,7 +42,7 @@ function Footer() {
           </a>
 
           <a
-            href="https://www.instagram.com/sharan_srk"
+            href="https://www.instagram.com/sharan_srk/"
             target="_blank"
             rel="noreferrer"
             aria-label="Instagram"
